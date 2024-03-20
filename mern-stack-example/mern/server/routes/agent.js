@@ -24,9 +24,16 @@ router.post("/login", async (req, res) => {
     return res.status(500).send("Error adding agent");
   }
 });
-router.get("/error", (req, res) => {
-  // Serve Error.jsx file from the correct path
-  res.status(404).sendFile(path.join(__dirname, "../components/Error.jsx"));
+// router.get("/unauthorized", (req, res) => {
+//   // Serve Unauthorized.jsx file from the correct path
+//   res
+//     .status(404)
+//     .sendFile(path.join(__dirname, "../components/Unauthorized.jsx"));
+// });
+router.get("/unauthorized", (req, res) => {
+  res.sendFile(
+    path.join(__dirname, "../client/src/components/Unauthorized.jsx")
+  );
 });
 
 router.get("/", async (req, res) => {
