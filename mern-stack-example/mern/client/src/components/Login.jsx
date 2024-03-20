@@ -1,7 +1,7 @@
 // import { useState } from "react";
 // import { useNavigate } from "react-router-dom";
 
-// export default function Agent() {
+// export default function Login() {
 //   const [form, setForm] = useState({
 //     email: "",
 //     password: "",
@@ -10,14 +10,13 @@
 //   const navigate = useNavigate();
 
 //   function updateForm(value) {
-//     return setForm((prev) => {
-//       return { ...prev, ...value };
-//     });
+//     setForm((prev) => ({ ...prev, ...value }));
 //   }
 
 //   async function onSubmit(e) {
 //     e.preventDefault();
 //     const login = { ...form };
+
 //     try {
 //       const response = await fetch("http://localhost:5050/agent/login", {
 //         method: "POST",
@@ -28,14 +27,17 @@
 //       });
 
 //       if (!response.ok) {
-//         navigate("/unauthorized");
-//         window.alert(await response.text());
+//         const errorMessage = await response.text();
+//         window.alert(errorMessage);
 //         throw new Error(`HTTP error! status: ${response.status}`);
 //       }
 
-//       if (response.status === 200) return navigate("/home");
+//       if (response.status === 200) {
+//         navigate("/home");
+//       }
 //     } catch (error) {
 //       console.error("A problem occurred with your fetch operation: ", error);
+//       navigate("/unauthorized");
 //     } finally {
 //       setForm({ email: "", password: "" });
 //     }
@@ -112,8 +114,9 @@
 //     </>
 //   );
 // }
-////////////////////////////////////////
-import { useState } from "react";
+
+////////////////////
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
@@ -142,8 +145,6 @@ export default function Login() {
       });
 
       if (!response.ok) {
-        const errorMessage = await response.text();
-        window.alert(errorMessage);
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
@@ -175,7 +176,7 @@ export default function Login() {
             </p>
           </div>
 
-          <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 ">
+          <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8">
             <div className="sm:col-span-4">
               <label
                 htmlFor="email"
