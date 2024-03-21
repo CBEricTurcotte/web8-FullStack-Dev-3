@@ -13,6 +13,7 @@ describe("Web 8 auto-grading", () => {
     cy.get("#password").type("1212");
     cy.get(".rounded-lg > .inline-flex").click();
 
+    // login button #id
     cy.get(".fade").should("be.visible");
 
     // Wait for 5 seconds
