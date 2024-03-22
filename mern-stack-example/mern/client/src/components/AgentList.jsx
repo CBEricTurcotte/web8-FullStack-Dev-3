@@ -87,9 +87,9 @@ export default function AgentList() {
         to="/create"
         className="inline-flex items-center justify-center whitespace-nowrap text-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-slate-100 h-9 rounded-md px-3"
       >
-        Create Employee
+        Create Agent
       </Link>
-      <h3 className="text-lg font-semibold p-4">Employee Agents</h3>
+      <h3 className="text-lg font-semibold p-4">Agents Management</h3>
       <div className="border rounded-lg overflow-hidden">
         <div className="relative w-full overflow-auto">
           <table className="w-full caption-bottom text-sm">
