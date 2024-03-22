@@ -77,6 +77,8 @@ import Login from "./components/Login";
 import Unauthorized from "./components/Unauthorized";
 import Agent from "./components/Agent";
 import AgentList from "./components/AgentList";
+import Home from "./components/Home";
+import Transaction from "./components/Transaction";
 import "./index.css";
 
 // Import Bootstrap CSS
@@ -109,7 +111,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/home",
-        element: <AgentList />,
+        element: <Home />,
       },
     ],
   },
@@ -130,6 +132,26 @@ const router = createBrowserRouter([
       {
         path: "/edit/:id",
         element: <Agent />,
+      },
+    ],
+  },
+  {
+    path: "/transaction",
+    element: <App />,
+    children: [
+      {
+        path: "/transaction",
+        element: <Transaction />,
+      },
+    ],
+  },
+  {
+    path: "/agentList",
+    element: <App />,
+    children: [
+      {
+        path: "/agentList",
+        element: <AgentList />,
       },
     ],
   },
