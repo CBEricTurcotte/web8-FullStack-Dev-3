@@ -31,58 +31,85 @@ describe("Web 8 auto-grading", () => {
       });
     });
   });
-  // it("Admin App 3 - The favicon has been changed to reflect the Rocket Elevator App", () => {
-  //   cy.visit("http://localhost:5173/home");
-  //   cy.get('link[rel="icon"]').should(
-  //     "have.attr",
-  //     "href",
-  //     "/src/images/RocketElevatorsIcon.ico"
-  //   );
+  it.skip("Boostrap 2 - A green notification is triggered on(create,update,delete)success", () => {
+    cy.visit("/");
+  });
+  it.skip("Boostrap 3 - A red notification is triggered on(create,update,delete)failure", () => {
+    cy.visit("/");
+  });
+  it.skip("Boostrap 4 - Confirmation is required prior to processing update or delete", () => {
+    cy.visit("/");
+  });
+  it.skip("Home Page - The admin home page is a grid of cards", () => {
+    cy.visit("/");
+  });
+  it.skip("Home Page 2 - An'Agent Management'card exists and works properly", () => {
+    cy.visit("/");
+  });
+  it.skip("Home Page 3 - An'Transaction'card exists and works properly", () => {
+    cy.visit("/");
+  });
+  it.skip("Home Page 4 - The'Create Agent' link from navbar has been moved to the Agent Management component", () => {
+    cy.visit("/");
+  });
+  it.skip("Session - Mongo contains a Session collection with required fields", () => {
+    cy.visit("/");
+  });
+  it.skip("Session 2 - A check for session_token is made when the user navigates to any page", () => {
+    cy.visit("/");
+  });
+  it.skip("Session 3 - The user is redirected to the login page if no token isfound or if the token is invalid", () => {
+    cy.visit("/");
+  });
+  it.skip("Session 4 - The user is redirected to the admin home page if the session/token is valid", () => {
+    cy.visit("/");
+  });
+  it.skip("Session 5 - GET/validate_token properly validates the token passed as a query parameter", () => {
+    cy.visit("/");
+  });
+  it.skip("Session 6 - GET/validate_token returns proper data in proper format", () => {
+    cy.visit("/");
+  });
+  it.skip("Session 7 - When validating a session,a check is made on DB to see if session exists and if token is valid", () => {
+    cy.visit("/");
+  });
+  it.skip("Session 8 - On successful login,a session is saved through POST/session", () => {
+    cy.visit("/");
+  });
+  it.skip("Session 9 - Session contains a successfully generated token", () => {
+    cy.visit("/");
+  });
+  it.skip("Session 10 - Session contains a 24 hours expiration date", () => {
+    cy.visit("/");
+  });
+  it.skip("Transactions- The transaction page shows a list of the last ten transactions", () => {
+    cy.visit("/");
+  });
+  it.skip("Transactions 2 - The transactions listed includes date,amount and agent fullname", () => {
+    cy.visit("/");
+  });
+  // it.skip("Transactions 3 - The'Create Agent' link from navbar has been moved to the Agent Management component", () => {
+  //   cy.visit("/");
   // });
-  // it("Admin App 4 - The Mongo logo has been changed to reflect the Rocket Elevator App", () => {
-  //   cy.visit("http://localhost:5173");
-  //   cy.get('img[alt="Rocket Logo"]');
-  //   // .invoke("attr", "src")
-  //   // .should("include", "RocketElevatorsLogo.png");
-  // });
-
-  // it("Admin App 5 - Agent table has been modified to includes:Name,Region,Rating,Fee, Action", () => {
-  //   cy.visit("http://localhost:5173/home");
-  //   cy.contains("th", "Name").should("exist");
-  //   cy.contains("th", "Region").should("exist");
-  //   cy.contains("th", "Rating").should("exist");
-  //   cy.contains("th", "Fee").should("exist");
-  //   cy.contains("th", "Action").should("exist");
-  // });
-  // it("Admin App 6 - A login route has been created", () => {
-  //   // Assert that the /login route is defined in your routes/server/routes/agent.js file //
-  //   cy.readFile("../server/routes/agent.js").then((content) => {
-  //     expect(content).to.include("/login");
-  //   });
-  // });
-  // it("Admin App 7 - The login route is working", () => {
-  //   cy.request("http://localhost:5173").then((response) => {
-  //     expect(response.status).to.eq(200); // Assuming 200 OK response for successful existence
-  //   });
-  // });
-  // it("Admin App 8 - After logging in successfully, the user is taken to the home page", () => {
-  //   cy.request("/login").then((response) => {
-  //     expect(response.status).to.eq(200); // Assuming 200 OK response for successful existence
-  //     cy.get("#email").type("cypress@gmail.com");
-  //     cy.get("#password").type("test456");
-  //     cy.get(".rounded-lg > .inline-flex").click();
-  //     cy.url().should("include", "/home"); // Assuming it was rename /home
-  //   });
-  // });
-  // it("Admin App 9 - When login is unsuccessful, the user is taken to an error / unauthorized page", () => {
-  //   cy.visit("http://localhost:5173");
-  //   cy.get("#email").type("cypress@gmail.com");
-  //   cy.get("#password").type("nopassword");
-  //   cy.get(".rounded-lg > .inline-flex").click();
-  //   cy.url().should("include", "/error"); // Assuming error page is name /error
-  // });
-  // it("Admin App 10 - Agents MongoDB schema has been created", () => {
-  //   cy.readFile("../server/db/schemas/agent.Schema.js").should("exist"); // Assuming the structure and naming are establiched
-  // });
+  it.skip("Transactions 4 - GET/transaction-data returns the last 10 transactions from DB in proper format", () => {
+    cy.visit("/");
+  });
+  it.skip("Transactions 5 - GET/transaction-data returns agents data from Mongo in proper format ", () => {
+    cy.visit("/");
+  });
+  it.skip("Transaction Form - An input field takes theamountof transactionsandonlypositive' ", () => {
+    cy.visit("/");
+  });
+  it.skip("Transaction Form 2 - A drop down menu exists and contains all the agents by name and id ", () => {
+    cy.visit("/");
+  });
+  it.skip("Transaction Form 3 - Form data is saved to DB through a POST on /transaction ", () => {
+    cy.visit("/");
+  });
+  it.skip("Transaction Form 4 - Data is saved to a Transaction object {date, amount, agent_id}", () => {
+    cy.visit("/");
+  });
+  it.skip("Transaction Form 5 - POST /transaction takes amount and agent_id as body params", () => {
+    cy.visit("/");
+  });
 });
-//
