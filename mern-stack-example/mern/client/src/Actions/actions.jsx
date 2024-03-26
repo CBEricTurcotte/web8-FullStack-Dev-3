@@ -1,7 +1,7 @@
 // import React, { useState, useEffect } from "react";
 // import Alert from "react-bootstrap/Alert";
 
-// function BasicExample() {
+// function FailedLoginAlert() {
 //   const [showAlert, setShowAlert] = useState(false);
 
 //   useEffect(() => {
@@ -30,11 +30,7 @@
 //   );
 // }
 
-// export default BasicExample;
-
-// src/Actions/actions.js
-
-// src/Actions/actions.jsx
+// export default FailedLoginAlert;
 
 import React, { useState, useEffect } from "react";
 import Alert from "react-bootstrap/Alert";
@@ -68,4 +64,26 @@ function FailedLoginAlert() {
   );
 }
 
-export default FailedLoginAlert;
+function SuccessNotification({ message }) {
+  const [showAlert, setShowAlert] = useState(false);
+
+  useEffect(() => {
+    if (showAlert) {
+      const timeout = setTimeout(() => {
+        setShowAlert(false);
+      }, 5000);
+
+      return () => clearTimeout(timeout);
+    }
+  }, [showAlert]);
+
+  useEffect(() => {
+    if (message) {
+      setShowAlert(true);
+    }
+  }, [message]);
+
+  return <>{showAlert && <Alert variant="success">{message}</Alert>}</>;
+}
+
+export { FailedLoginAlert, SuccessNotification };
