@@ -125,8 +125,11 @@ describe("Web 8 auto-grading", () => {
       .contains("Transaction") // Check if it contains the text "Transaction"
       .should("exist"); // Ensure the text exists within the card
   });
-  it.skip("Home Page 4 - The'Create Agent' link from navbar has been moved to the Agent Management component", () => {
-    cy.visit("/");
+  it.only("Home Page 4 - The'Create Agent' link from navbar has been moved to the Agent Management component", () => {
+    cy.visit("http://localhost:5173/agentList");
+    cy.get(".text-md")
+      .contains("Create Agent") // Find the button containing the text "Create Agent"
+      .should("exist");
   });
   it.skip("Session - Mongo contains a Session collection with required fields", () => {
     cy.visit("/");
