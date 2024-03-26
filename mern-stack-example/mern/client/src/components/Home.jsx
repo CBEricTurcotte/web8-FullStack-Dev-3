@@ -1,37 +1,3 @@
-// import React from "react";
-// import { Card, CardContent, Typography } from "@mui/material";
-
-// export default function Home() {
-//   return (
-//     <>
-//       {/* Agent Management Card */}
-//       <Card className="my-4">
-//         <CardContent>
-//           <Typography variant="h5" component="div">
-//             Agent Management
-//           </Typography>
-//           <Typography variant="body2">
-//             This card contains information and actions related to agent
-//             management.
-//           </Typography>
-//         </CardContent>
-//       </Card>
-
-//       {/* Transaction Card */}
-//       <Card className="my-4">
-//         <CardContent>
-//           <Typography variant="h5" component="div">
-//             Transaction
-//           </Typography>
-//           <Typography variant="body2">
-//             This card contains information and actions related to transactions.
-//           </Typography>
-//         </CardContent>
-//       </Card>
-//     </>
-//   );
-// }
-
 import React from "react";
 import { Card, CardContent, Typography } from "@mui/material";
 import { Link } from "react-router-dom"; // Import Link for navigation
