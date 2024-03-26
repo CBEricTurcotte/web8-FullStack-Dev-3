@@ -151,9 +151,7 @@ const Agent = (props) => (
           Edit
         </Link>
         <button
-          className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-slate-100 hover:text-accent-foreground h-9 rounded-md px-3"
-          color="red"
-          type="button"
+          // Delete button
           onClick={() => {
             props.deleteAgent(props.agent._id);
           }}
@@ -190,15 +188,12 @@ export default function AgentList() {
     await fetch(`http://localhost:5050/agent/${id}`, {
       method: "DELETE",
     });
+    // Show success alert after deleting agent
+    setShowSuccessAlert(true);
+    setTimeout(() => setShowSuccessAlert(false), 5000);
     const newAgents = agents.filter((el) => el._id !== id);
     setAgents(newAgents);
   }
-
-  // This method will handle the success alert
-  const handleSuccessAlert = () => {
-    setShowSuccessAlert(true);
-    setTimeout(() => setShowSuccessAlert(false), 5000); // Hide alert after 5 seconds
-  };
 
   // This method will map out the agents on the table
   function agentList() {
@@ -230,7 +225,7 @@ export default function AgentList() {
           onClose={() => setShowSuccessAlert(false)}
           dismissible
         >
-          Agent edited successfully!
+          Agent deleted successfully!
         </Alert>
       )}
       <div className="border rounded-lg overflow-hidden">
