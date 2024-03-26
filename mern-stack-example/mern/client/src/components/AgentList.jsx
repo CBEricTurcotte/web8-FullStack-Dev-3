@@ -127,6 +127,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Alert from "react-bootstrap/Alert"; // Import Alert component from react-bootstrap
+import Button from "react-bootstrap/Button"; // Import Button component from react-bootstrap
 
 const Agent = (props) => (
   <tr className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
@@ -150,14 +151,13 @@ const Agent = (props) => (
         >
           Edit
         </Link>
-        <button
-          // Delete button
-          onClick={() => {
-            props.deleteAgent(props.agent._id);
-          }}
+        <Button
+          variant="warning"
+          className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-slate-100 hover:text-accent-foreground h-9 rounded-md px-3"
+          onClick={() => props.setShowDeleteConfirmation(props.agent._id)}
         >
           Delete
-        </button>
+        </Button>
       </div>
     </td>
   </tr>
@@ -166,6 +166,7 @@ const Agent = (props) => (
 export default function AgentList() {
   const [agents, setAgents] = useState([]);
   const [showSuccessAlert, setShowSuccessAlert] = useState(false); // State for success alert
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false); // State for delete confirmation
 
   // This method fetches the agents from the database.
   useEffect(() => {
@@ -188,11 +189,17 @@ export default function AgentList() {
     await fetch(`http://localhost:5050/agent/${id}`, {
       method: "DELETE",
     });
-    // Show success alert after deleting agent
-    setShowSuccessAlert(true);
-    setTimeout(() => setShowSuccessAlert(false), 5000);
     const newAgents = agents.filter((el) => el._id !== id);
     setAgents(newAgents);
+    setShowSuccessAlert(true); // Show success alert after delete
+    setTimeout(() => setShowSuccessAlert(false), 5000); // Hide success alert after 5 seconds
+  }
+
+  // This method will handle the confirmation before deleting an agent
+  function confirmDelete(id) {
+    if (window.confirm("Are you sure you want to delete this agent?")) {
+      deleteAgent(id);
+    }
   }
 
   // This method will map out the agents on the table
@@ -201,8 +208,9 @@ export default function AgentList() {
       return (
         <Agent
           agent={agent}
-          deleteAgent={() => deleteAgent(agent._id)}
+          setShowDeleteConfirmation={setShowDeleteConfirmation}
           key={agent._id}
+          confirmDelete={confirmDelete} // Pass confirmDelete function as prop
         />
       );
     });
@@ -226,6 +234,27 @@ export default function AgentList() {
           dismissible
         >
           Agent deleted successfully!
+        </Alert>
+      )}
+      {showDeleteConfirmation && ( // Show delete confirmation alert if showDeleteConfirmation is true
+        <Alert
+          variant="warning"
+          className="w-full max-w-lg text-center mb-4"
+          onClose={() => setShowDeleteConfirmation(false)}
+          dismissible
+        >
+          Are you sure you want to delete this agent?
+          <div className="mt-2">
+            <Button
+              variant="danger"
+              onClick={() => {
+                confirmDelete(showDeleteConfirmation);
+                setShowDeleteConfirmation(false);
+              }}
+            >
+              Confirm Delete
+            </Button>
+          </div>
         </Alert>
       )}
       <div className="border rounded-lg overflow-hidden">

@@ -31,23 +31,99 @@ describe("Web 8 auto-grading", () => {
       });
     });
   });
-  it.skip("Boostrap 2 - A green notification is triggered on(create,update,delete)success", () => {
-    cy.visit("/");
+  it("Boostrap 2 - A green notification is triggered on create success", () => {
+    cy.visit("http://localhost:5173/agentList");
+    cy.get(".text-md").click();
+    cy.get("#name").type("test cypress");
+    cy.get("#rating").type("2000");
+    cy.get("#fee").type("1000");
+    cy.get("#regionNorth").click();
+    cy.get(".inline-flex").click();
+    cy.get(".fade").should("be.visible");
+    // Get the computed color of the fading element
+    cy.get(".fade")
+      .invoke("css", "color")
+      .then((color) => {
+        // Use Chai's assertion to check if the color matches the expected color
+        expect(color).to.equal("rgb(10, 54, 34)");
+      });
+  });
+  it("Boostrap 2 - A green notification is triggered on update success", () => {
+    cy.visit("http://localhost:5173/agentList");
+    cy.get(":nth-child(1) > :nth-child(5) > .flex > a.inline-flex").click();
+    cy.get("#fee").clear().type("500");
+    cy.get(".inline-flex").click();
+    cy.get(".fade").should("be.visible");
+    // Get the computed color of the fading element
+    cy.get(".fade")
+      .invoke("css", "color")
+      .then((color) => {
+        // Use Chai's assertion to check if the color matches the expected color
+        expect(color).to.equal("rgb(10, 54, 34)");
+      });
+  });
+  it.skip("Boostrap 2 - A green notification is triggered on delete success", () => {
+    cy.visit("http://localhost:5173/agentList");
+    cy.get("button.btn.btn-warning").contains("Delete").eq(0).click();
+    cy.get(".fade")
+      .invoke("css", "color")
+      .then((color) => {
+        // Use Chai's assertion to check if the color matches the expected color
+        expect(color).to.equal("rgb(10, 54, 34)");
+      });
   });
   it.skip("Boostrap 3 - A red notification is triggered on(create,update,delete)failure", () => {
     cy.visit("/");
   });
-  it.skip("Boostrap 4 - Confirmation is required prior to processing update or delete", () => {
+  it.skip("Boostrap 4 - Confirmation is required prior to processing update", () => {
     cy.visit("/");
   });
-  it.skip("Home Page - The admin home page is a grid of cards", () => {
-    cy.visit("/");
+  it("Boostrap 4 - Confirmation is required prior to processing delete", () => {
+    cy.visit("http://localhost:5173/agentList");
+    cy.get("button.btn.btn-warning").contains("Delete").eq(0).click();
+    cy.get(".alert.alert-warning") // Select the alert element with the warning class
+      .contains("Are you sure you want to delete this agent?") // Check if it contains the specified text
+      .parent() // Move up to the parent element of the text
+      .find(".btn.btn-danger") // Find the button with the danger class inside the parent element
+      .click(); // Click on the button
+    cy.get(".fade")
+      .invoke("css", "color")
+      .then((color) => {
+        // Use Chai's assertion to check if the color matches the expected color
+        expect(color).to.equal("rgb(10, 54, 34)");
+      });
   });
-  it.skip("Home Page 2 - An'Agent Management'card exists and works properly", () => {
-    cy.visit("/");
+  it("Home Page - The admin home page is a grid of cards", () => {
+    cy.visit("http://localhost:5173/home");
+    // Validate the URL
+    cy.url().should("include", "/home");
+    cy.get(".w-full") // Select the element with class .w-full
+      .find(
+        ".MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiCard-root.my-4.css-bhp9pd-MuiPaper-root-MuiCard-root"
+      ) // Find cards with specific classes
+      .should("have.length", 2);
   });
-  it.skip("Home Page 3 - An'Transaction'card exists and works properly", () => {
-    cy.visit("/");
+  it("Home Page 2 - An'Agent Management'card exists and works properly", () => {
+    cy.visit("http://localhost:5173/home");
+    // Select the first card and check if it contains the text "Agent Management"
+    cy.get(".w-full") // Select the element with class .w-full
+      .find(
+        ".MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiCard-root.my-4.css-bhp9pd-MuiPaper-root-MuiCard-root"
+      ) // Find cards with specific classes
+      .first() // Select the first card
+      .contains("Agent Management") // Check if it contains the text "Agent Management"
+      .should("exist");
+  });
+  it("Home Page 3 - An'Transaction'card exists and works properly", () => {
+    cy.visit("http://localhost:5173/home");
+    // Select the second card and check if it contains the text "Transaction"
+    cy.get(".w-full") // Select the element with class .w-full
+      .find(
+        ".MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiCard-root.my-4.css-bhp9pd-MuiPaper-root-MuiCard-root"
+      ) // Find cards with specific classes
+      .eq(1) // Select the second card (index 1)
+      .contains("Transaction") // Check if it contains the text "Transaction"
+      .should("exist"); // Ensure the text exists within the card
   });
   it.skip("Home Page 4 - The'Create Agent' link from navbar has been moved to the Agent Management component", () => {
     cy.visit("/");
