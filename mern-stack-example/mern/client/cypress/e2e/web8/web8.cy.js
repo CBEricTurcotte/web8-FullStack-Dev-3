@@ -209,10 +209,21 @@ describe("Web 8 auto-grading", () => {
   it.skip("Transactions 5 - GET/transaction-data returns agents data from Mongo in proper format ", () => {
     cy.visit("/");
   });
-  it.skip("Transaction Form - An input field takes the amount of transactions and only positive' ", () => {
-    cy.visit("/");
+  it.only("Transaction Form - An input field takes the amount of transactions and only positive' ", () => {
+    cy.visit("http://localhost:5173/transaction");
+    cy.get("#amount") // Assuming the input field has this ID
+      .should("exist") // Ensure the input field exists
+      .clear()
+      .type("abc123") // Type invalid characters
+      .should("have.value", "123") // Check if the value is empty (only positive numbers should be accepted)
+      .clear() // Clear the input field
+      .type("-123") // Type a negative number
+      .should("have.value", "123") // Check if the value is empty (only positive numbers should be accepted)
+      .clear() // Clear the input field
+      .type("123") // Type a positive number
+      .should("have.value", "123"); // Check if the value is the same as typed
   });
-  it.only("Transaction Form 2 - A drop down menu exists and contains all the agents by name and id ", () => {
+  it("Transaction Form 2 - A drop down menu exists and contains all the agents by name and id ", () => {
     cy.visit("http://localhost:5173/transaction");
     cy.get("#agents") // Assuming the dropdown has ID 'agents'
       .should("exist") // Ensure the dropdown element exists

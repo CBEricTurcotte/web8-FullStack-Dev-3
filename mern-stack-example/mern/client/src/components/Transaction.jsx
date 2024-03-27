@@ -204,8 +204,11 @@ export default function Transaction() {
 
   const handleAmountChange = (e) => {
     const inputAmount = e.target.value;
-    // Validate if the input is a positive number
-    if (!isNaN(inputAmount) && parseFloat(inputAmount) >= 0) {
+    // Validate if the input is a positive number or empty string
+    if (
+      inputAmount === "" ||
+      (!isNaN(inputAmount) && parseFloat(inputAmount) >= 0)
+    ) {
       setAmount(inputAmount);
     }
   };
