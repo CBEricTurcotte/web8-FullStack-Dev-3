@@ -23,7 +23,7 @@ import express from "express";
 import cors from "cors";
 import agents from "./routes/agent.js";
 import dotenv from "dotenv";
-import mongoose from "mongoose"; // Import Mongoose library
+import { MongoClient } from "mongodb"; // Import MongoClient from MongoDB driver
 import Session from "./db/schemas/sessionSchema.js"; // Import Session schema
 
 dotenv.config(); // Load environment variables from .env file
@@ -35,12 +35,14 @@ app.use(cors());
 app.use(express.json());
 app.use("/agent", agents);
 
-// Connect to MongoDB
-mongoose
-  .connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+// Connect to MongoDB using MongoClient
+const client = new MongoClient(process.env.ATLAS_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+client
+  .connect()
   .then(() => {
     console.log("MongoDB connected");
 
@@ -50,10 +52,12 @@ mongoose
       user: "user_id", // Replace with an actual user ID from your User collection
     });
 
-    newSession
-      .save()
-      .then((session) => {
-        console.log("Session created:", session);
+    client
+      .db("employees") // Replace 'your_database_name' with your actual database name
+      .collection("sessions") // Replace 'your_collection_name' with your actual collection name
+      .insertOne(newSession)
+      .then(() => {
+        console.log("Session created");
       })
       .catch((err) => {
         console.error("Error creating session:", err);

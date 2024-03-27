@@ -1,3 +1,5 @@
+// ////////////////////////////////
+
 // import React, { useState, useEffect } from "react";
 
 // export default function Transaction() {
@@ -59,6 +61,17 @@
 //     }
 //   };
 
+//   const handleAmountChange = (e) => {
+//     const inputAmount = e.target.value;
+//     // Validate if the input is a positive number or empty string
+//     if (
+//       inputAmount === "" ||
+//       (!isNaN(inputAmount) && parseFloat(inputAmount) >= 0)
+//     ) {
+//       setAmount(inputAmount);
+//     }
+//   };
+
 //   return (
 //     <div>
 //       <h1 className="text-2xl font-semibold mb-4">Transaction Page</h1>
@@ -109,7 +122,7 @@
 //             className="border border-gray-300 rounded-md px-3 py-2 w-full"
 //             placeholder="Enter amount"
 //             value={amount}
-//             onChange={(e) => setAmount(e.target.value)}
+//             onChange={handleAmountChange} // Updated to handleAmountChange
 //           />
 //           <h2 className="text-lg font-medium mb-2 mt-4">Select Agent</h2>
 //           <select
@@ -139,7 +152,7 @@
 //   );
 // }
 
-// ////////////////////////////////
+/////////////////////////
 
 import React, { useState, useEffect } from "react";
 
@@ -194,7 +207,7 @@ export default function Transaction() {
         throw new Error("Failed to add transaction");
       }
       // Refresh transactions after adding a new one
-      fetchTransactions();
+      fetchTransactions(); // Updated to fetch transactions after adding
       setAmount("");
       setSelectedAgent("");
     } catch (error) {
