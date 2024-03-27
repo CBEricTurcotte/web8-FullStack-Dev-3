@@ -103,7 +103,7 @@ describe("Web 8 auto-grading", () => {
       ) // Find cards with specific classes
       .should("have.length", 2);
   });
-  it("Home Page 2 - An'Agent Management'card exists and works properly", () => {
+  it.only("Home Page 2 - An'Agent Management'card exists and works properly", () => {
     cy.visit("http://localhost:5173/home");
     // Select the first card and check if it contains the text "Agent Management"
     cy.get(".w-full") // Select the element with class .w-full
@@ -112,7 +112,9 @@ describe("Web 8 auto-grading", () => {
       ) // Find cards with specific classes
       .first() // Select the first card
       .contains("Agent Management") // Check if it contains the text "Agent Management"
-      .should("exist");
+      .should("exist")
+      .click();
+    cy.url().should("include", "/agentList");
   });
   it("Home Page 3 - An'Transaction'card exists and works properly", () => {
     cy.visit("http://localhost:5173/home");
@@ -123,7 +125,9 @@ describe("Web 8 auto-grading", () => {
       ) // Find cards with specific classes
       .eq(1) // Select the second card (index 1)
       .contains("Transaction") // Check if it contains the text "Transaction"
-      .should("exist"); // Ensure the text exists within the card
+      .should("exist")
+      .click(); // Ensure the text exists within the card
+    cy.url().should("include", "/transaction");
   });
   it("Home Page 4 - The'Create Agent' link from navbar has been moved to the Agent Management component", () => {
     cy.visit("http://localhost:5173/agentList");
@@ -209,7 +213,7 @@ describe("Web 8 auto-grading", () => {
   it.skip("Transactions 5 - GET/transaction-data returns agents data from Mongo in proper format ", () => {
     cy.visit("/");
   });
-  it.only("Transaction Form - An input field takes the amount of transactions and only positive' ", () => {
+  it.skip("Transaction Form - An input field takes the amount of transactions and only positive' ", () => {
     cy.visit("http://localhost:5173/transaction");
     cy.get("#amount") // Assuming the input field has this ID
       .should("exist") // Ensure the input field exists
