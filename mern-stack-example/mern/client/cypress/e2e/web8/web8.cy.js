@@ -125,11 +125,26 @@ describe("Web 8 auto-grading", () => {
       .contains("Transaction") // Check if it contains the text "Transaction"
       .should("exist"); // Ensure the text exists within the card
   });
-  it.only("Home Page 4 - The'Create Agent' link from navbar has been moved to the Agent Management component", () => {
+  it("Home Page 4 - The'Create Agent' link from navbar has been moved to the Agent Management component", () => {
     cy.visit("http://localhost:5173/agentList");
     cy.get(".text-md")
       .contains("Create Agent") // Find the button containing the text "Create Agent"
       .should("exist");
+    /////////////
+    cy.visit("http://localhost:5173/"); // test Login page
+    cy.get(".text-md")
+      .contains("Create Agent") // Find the button containing the text "Create Agent"
+      .should("not.exist");
+    /////////////
+    cy.visit("http://localhost:5173/unauthorized"); // test unauthorized page
+    cy.get(".w-full")
+      .contains("Create Agent") // Find the button containing the text "Create Agent"
+      .should("not.exist");
+    /////////////
+    cy.visit("http://localhost:5173/home"); // test home page
+    cy.get(".w-full")
+      .contains("Create Agent") // Find the button containing the text "Create Agent"
+      .should("not.exist");
   });
   it.skip("Session - Mongo contains a Session collection with required fields", () => {
     cy.visit("/");
@@ -161,11 +176,29 @@ describe("Web 8 auto-grading", () => {
   it.skip("Session 10 - Session contains a 24 hours expiration date", () => {
     cy.visit("/");
   });
-  it.skip("Transactions- The transaction page shows a list of the last ten transactions", () => {
-    cy.visit("/");
+  it("Transactions- The transaction page shows a list of the last ten transactions", () => {
+    cy.visit("http://localhost:5173/transaction");
+    cy.visit("http://localhost:5173/");
+    cy.get("#email").type("cypress@gmail.com");
+    cy.get("#password").type("test456");
+    cy.get(".rounded-lg > .inline-flex").click();
+    cy.get(":nth-child(3) > .card-link > .MuiCardContent-root").click();
   });
-  it.skip("Transactions 2 - The transactions listed includes date,amount and agent fullname", () => {
-    cy.visit("/");
+  it("Transactions 2 - The transactions listed includes date,amount and agent fullname", () => {
+    cy.visit("http://localhost:5173/transaction");
+    cy.visit("http://localhost:5173/");
+    cy.get("#email").type("cypress@gmail.com");
+    cy.get("#password").type("test456");
+    cy.get(".rounded-lg > .inline-flex").click();
+    cy.get(":nth-child(3) > .card-link > .MuiCardContent-root").click();
+    cy.get(".mb-8")
+      .should("exist") // Ensure the element exists
+      .within(() => {
+        // Check for the presence of titles
+        cy.contains("Date").should("exist"); // Check for "Date" subtext
+        cy.contains("Amount").should("exist"); // Check for "Amount" subtext
+        cy.contains("Agent Full Name").should("exist");
+      });
   });
   // it.skip("Transactions 3 - The'Create Agent' link from navbar has been moved to the Agent Management component", () => {
   //   cy.visit("/");
@@ -176,11 +209,24 @@ describe("Web 8 auto-grading", () => {
   it.skip("Transactions 5 - GET/transaction-data returns agents data from Mongo in proper format ", () => {
     cy.visit("/");
   });
-  it.skip("Transaction Form - An input field takes theamountof transactionsandonlypositive' ", () => {
+  it.skip("Transaction Form - An input field takes the amount of transactions and only positive' ", () => {
     cy.visit("/");
   });
-  it.skip("Transaction Form 2 - A drop down menu exists and contains all the agents by name and id ", () => {
-    cy.visit("/");
+  it.only("Transaction Form 2 - A drop down menu exists and contains all the agents by name and id ", () => {
+    cy.visit("http://localhost:5173/transaction");
+    cy.get("#agents") // Assuming the dropdown has ID 'agents'
+      .should("exist") // Ensure the dropdown element exists
+      .should("have.prop", "tagName", "SELECT") // Ensure it is a select element
+      .should(
+        "have.attr",
+        "class",
+        "border border-gray-300 rounded-md px-3 py-2 w-full"
+      ) // Check the class of the select element
+      .within(() => {
+        // Check the options within the select element
+        cy.get('option[value=""]').should("have.attr", "disabled"); // Check for disabled first option
+        cy.get('option:not([value=""])').should("have.length.greaterThan", 0); // Check for non-disabled options (agents)
+      });
   });
   it.skip("Transaction Form 3 - Form data is saved to DB through a POST on /transaction ", () => {
     cy.visit("/");
