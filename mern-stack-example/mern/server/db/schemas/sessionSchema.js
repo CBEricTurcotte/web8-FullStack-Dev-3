@@ -1,15 +1,18 @@
 import Mongoose from "mongoose";
 
 // Define the Session schema using Mongoose's Schema constructor
-const SESSION_SCHEMA = new Mongoose.Schema(
+import mongoose from "mongoose";
+
+// Define the Session schema using Mongoose's Schema constructor
+const sessionSchema = new mongoose.Schema(
   {
     session_token: {
       type: String,
       required: true,
     },
     user: {
-      type: Mongoose.Schema.Types.ObjectId,
-      ref: "users",
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User", // Reference to the User model
       required: true,
     },
   },
@@ -17,4 +20,4 @@ const SESSION_SCHEMA = new Mongoose.Schema(
 );
 
 // Export the Session model using Mongoose's model function
-export default Mongoose.model("Session", SESSION_SCHEMA);
+export default mongoose.model("Session", sessionSchema);
